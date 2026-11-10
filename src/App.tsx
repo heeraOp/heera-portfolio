@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import {
   ArrowUpRight,
   Code2,
+  Download,
   ExternalLink,
   Github,
   GraduationCap,
@@ -22,7 +23,7 @@ const navItems = [
   ['about', 'About'],
   ['skills', 'Skills'],
   ['projects', 'Projects'],
-  ['freelance', 'Freelance'],
+  ['freelance', 'Services'],
   ['contact', 'Contact'],
 ] as const
 
@@ -47,7 +48,7 @@ function App() {
         <div className="container nav-inner">
           <button className="brand" onClick={() => navigate('home')} aria-label="Back to home">
             <span className="brand-mark">H</span>
-            <span>Heera</span>
+            <span>Heera<span className="brand-period">.</span></span>
           </button>
 
           <nav className={`nav-links ${menuOpen ? 'nav-open' : ''}`} aria-label="Primary navigation">
@@ -78,35 +79,62 @@ function App() {
       <main>
         <section id="home" className="hero">
           <div className="hero-grid" aria-hidden="true" />
-          <div className="container hero-content">
-            <div className="eyebrow">
-              <span className="status-dot" aria-hidden="true" />
-              Available for freelance work
+          <div className="container hero-layout">
+            <div className="hero-content">
+              <div className="eyebrow">
+                <span className="status-dot" aria-hidden="true" />
+                Open to internships, research & collaborations
+              </div>
+              <p className="hero-role">COMPUTER SCIENCE STUDENT · AI-ORIENTED DEVELOPER</p>
+              <h1>
+                Building systems
+                <br />
+                <span>that solve problems.</span>
+              </h1>
+              <p className="hero-copy">
+                I’m <strong>Wahengbam Heramani Singh</strong>, a Computer Science and Engineering student at NIT Manipur.
+                I build full-stack applications and explore AI systems, NLP, large language models,
+                and retrieval-augmented generation.
+              </p>
+              <div className="hero-buttons">
+                <button className="button button-dark" onClick={() => navigate('projects')}>
+                  Explore my work <ArrowUpRight size={17} />
+                </button>
+                <a className="button button-light" href={`mailto:${profile.email}`}>
+                  Contact me <Mail size={17} />
+                </a>
+                <a
+                  className="button button-light"
+                  href="./documents/resume.pdf"
+                  download="Wahengbam-Heramani-Singh-CV.pdf"
+                >
+                  Download CV <Download size={17} />
+                </a>
+              </div>
+              <div className="hero-meta">
+                <span><GraduationCap size={16} /> {profile.college} · {profile.semester}</span>
+                <span><Code2 size={16} /> Full-stack & AI/ML</span>
+                <span><ShieldCheck size={16} /> Security-minded engineering</span>
+              </div>
             </div>
-            <p className="hero-role">CSE STUDENT · WEB DEVELOPER · FREELANCER</p>
-            <h1>
-              Building useful things
-              <br />
-              <span>for the web.</span>
-            </h1>
-            <p className="hero-copy">
-              I’m <strong>Heera</strong>, a Computer Science student at NIT Manipur,
-              web developer, and freelancer interested in building practical digital
-              experiences and learning cybersecurity.
-            </p>
-            <div className="hero-buttons">
-              <button className="button button-dark" onClick={() => navigate('projects')}>
-                View projects <ArrowUpRight size={17} />
-              </button>
-              <a className="button button-light" href={`mailto:${profile.email}`}>
-                Get in touch <Mail size={17} />
-              </a>
-            </div>
-            <div className="hero-meta">
-              <span><GraduationCap size={16} /> {profile.college} · {profile.semester}</span>
-              <span><Code2 size={16} /> Web development</span>
-              <span><ShieldCheck size={16} /> Cybersecurity interest</span>
-            </div>
+
+            <aside className="hero-portrait" aria-label="Professional portrait">
+              <div className="portrait-frame">
+                <img
+                  src="./images/profile.jpg"
+                  alt="Professional portrait of Wahengbam Heramani Singh"
+                  fetchPriority="high"
+                />
+              </div>
+              <div className="portrait-caption">
+                <span className="portrait-caption-mark">H.</span>
+                <span>
+                  <strong>Wahengbam Heramani Singh</strong>
+                  <small>CSE · NIT Manipur</small>
+                </span>
+              </div>
+              <div className="portrait-index">01 / DEVELOPER PROFILE</div>
+            </aside>
           </div>
         </section>
 
@@ -117,18 +145,18 @@ function App() {
             </div>
             <div className="section-body">
               <p>
-                I’m {profile.name}, preferably <strong>Heera</strong>. I’m currently
-                pursuing Computer Science and Engineering at NIT Manipur, where I’m in my
-                {` ${profile.semester}`}.
+                I’m {profile.name}, preferably <strong>Heera</strong>. I’m pursuing Computer Science
+                and Engineering at NIT Manipur, where I’m currently in my{` ${profile.semester}`}.
               </p>
               <p>
-                My main interests are <strong>web development</strong> and <strong>cybersecurity</strong>.
-                I enjoy turning ideas into usable interfaces, working with backend systems,
-                and learning by building hands-on projects.
+                My interests include <strong>full-stack engineering, Natural Language Processing,
+                LLMs, and Retrieval-Augmented Generation</strong>. I enjoy understanding systems
+                end to end—from interfaces and APIs to data pipelines and deployment.
               </p>
               <p>
-                Alongside my studies, I also take on <strong>freelance web development</strong> work
-                for people and organizations that need a clean, functional web presence.
+                I learn by building practical projects, experimenting with infrastructure, and
+                collaborating on technology intended to solve real problems. I’m also interested
+                in cybersecurity and secure system design.
               </p>
             </div>
           </div>
@@ -139,8 +167,8 @@ function App() {
             <SectionHeading
               index="02"
               title="Tools I work and learn with."
-              eyebrow="Skills"
-              action={<p className="heading-note">My toolkit evolves as I build and learn.</p>}
+              eyebrow="Technical skills"
+              action={<p className="heading-note">A practical toolkit built through coursework and projects.</p>}
             />
             <div className="skills-grid">
               <SkillCard icon={<Monitor size={20} />} title="Frontend" items={skills.frontend} />
@@ -159,57 +187,68 @@ function App() {
               eyebrow="Projects"
               action={
                 <a className="text-link" href={profile.github} target="_blank" rel="noreferrer">
-                  See GitHub <ArrowUpRight size={16} />
+                  Explore GitHub <ArrowUpRight size={16} />
                 </a>
               }
             />
 
             <article className="project-card">
               <div className="project-number">01</div>
-
               <div className="project-content">
                 <div className="project-topline">
-                  <span className="project-type">WEB DEVELOPMENT</span>
-                  <span className="project-status">PUBLIC REPOSITORY</span>
+                  <span className="project-type">FEATURED PROJECT</span>
+                  <span className="project-status">REPOSITORY</span>
                 </div>
                 <h3>{project.title}</h3>
                 <p>{project.description}</p>
                 <div className="tags">
                   {project.technologies.map((technology) => <span key={technology}>{technology}</span>)}
                 </div>
-                <a className="project-link" href={project.github} target="_blank" rel="noreferrer">
-                  View repository <ExternalLink size={16} />
-                </a>
-              </div>
+                <div className="project-actions">
+  <a
+    className="project-link"
+    href={project.github}
+    target="_blank"
+    rel="noreferrer"
+  >
+    View repository <ExternalLink size={16} />
+  </a>
 
+  <a
+    className="project-link"
+    href="https://heeraop.github.io/LuwangMaheikolCoaching/"
+    target="_blank"
+    rel="noreferrer"
+  >
+    Live Demo <ArrowUpRight size={16} />
+  </a>
+</div>
+              </div>
               <div className="project-visual" aria-hidden="true">
                 <div className="browser-window">
                   <div className="browser-bar">
                     <i /><i /><i />
-                    <span>scigenesis-coaching</span>
+                    <span>project preview</span>
                   </div>
                   <div className="browser-content">
-                    <div className="mini-kicker">COACHING INSTITUTE</div>
+                    <div className="mini-kicker">WEB APPLICATION</div>
                     <span className="mini-line wide" />
                     <span className="mini-line" />
-                    <div className="mini-grid">
-                      <b /><b /><b />
-                    </div>
+                    <div className="mini-grid"><b /><b /><b /></div>
                     <div className="mini-footer" />
                   </div>
                 </div>
               </div>
             </article>
 
-            <div className="more-projects">
+            <div className="project-callout">
               <div>
-                <p className="section-kicker">More coming</p>
-                <h3>More projects will be added as they become ready to showcase.</h3>
+                <p className="section-kicker">More projects</p>
+                <h3>More of my engineering work is available on GitHub.</h3>
               </div>
-              <p>
-                I’m keeping this portfolio focused on work that can be presented accurately,
-                instead of filling it with placeholder or unverified projects.
-              </p>
+              <a className="button button-light" href={profile.github} target="_blank" rel="noreferrer">
+                Browse repositories <ArrowUpRight size={16} />
+              </a>
             </div>
           </div>
         </section>
@@ -217,17 +256,17 @@ function App() {
         <section id="freelance" className="section section-dark">
           <div className="container freelance-grid">
             <div>
-              <p className="section-kicker light">04 — Freelance</p>
-              <h2>Need a website that simply works?</h2>
+              <p className="section-kicker light">04 — Services</p>
+              <h2>Thoughtful websites, built to work.</h2>
             </div>
             <div className="freelance-copy">
               <p>
-                I’m available for freelance web development projects, including personal websites,
-                business websites, coaching and educational websites, landing pages, and responsive
-                frontend work.
+                I work on responsive websites for individuals, businesses, and educational
+                organisations—including coaching websites, portfolio sites, landing pages, and
+                content-driven platforms.
               </p>
               <a className="button button-white" href={`mailto:${profile.email}`}>
-                Start a conversation <ArrowUpRight size={17} />
+                Discuss a project <ArrowUpRight size={17} />
               </a>
             </div>
           </div>
@@ -237,14 +276,14 @@ function App() {
           <div className="container two-col">
             <div>
               <p className="section-kicker">05 — Education</p>
-              <h2>Currently learning at NIT Manipur.</h2>
+              <h2>Learning, building, and growing at NIT Manipur.</h2>
             </div>
             <div className="education-card">
               <div className="education-icon"><GraduationCap size={23} /></div>
               <div>
                 <p className="education-school">{profile.college}</p>
                 <h3>{profile.education}</h3>
-                <p className="education-semester">{profile.semester}</p>
+                <p className="education-semester">{profile.semester} · 2025–2029</p>
               </div>
             </div>
           </div>
@@ -255,13 +294,12 @@ function App() {
             <div className="contact-panel">
               <div>
                 <p className="section-kicker">06 — Contact</p>
-                <h2>Let’s build something useful.</h2>
+                <h2>Have an idea worth building?</h2>
                 <p className="contact-intro">
-                  For freelance work, collaborations, or a conversation about web development,
-                  you can reach me through the links below.
+                  I’m open to internship opportunities, research collaborations, freelance projects,
+                  and conversations about engineering and applied AI.
                 </p>
               </div>
-
               <div className="contact-links">
                 <a href={`mailto:${profile.email}`} className="contact-link">
                   <span className="contact-icon"><Mail size={18} /></span>
@@ -292,8 +330,8 @@ function App() {
       <footer className="footer">
         <div className="container footer-inner">
           <div>
-            <span className="brand footer-brand"><span className="brand-mark">H</span><span>Heera</span></span>
-            <p>CSE Student · Web Developer · Freelancer</p>
+            <span className="brand footer-brand"><span className="brand-mark">H</span><span>Heera<span className="brand-period">.</span></span></span>
+            <p>CSE Student · AI-oriented Developer · Full-stack Engineer</p>
           </div>
           <div className="footer-right">
             <span>© {new Date().getFullYear()} Wahengbam Heramani Singh</span>
